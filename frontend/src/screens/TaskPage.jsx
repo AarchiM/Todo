@@ -14,6 +14,7 @@ const TaskPage = () => {
   const [text, setText] = useState("");
   const [newText, setNewText] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const dispatch = useDispatch();
   // const allTasks = useSelector((state) => state.tasks.tasks);
   const [allTasks, setAllTasks] = useState([]);
@@ -45,6 +46,13 @@ const TaskPage = () => {
     const emailSaved = localStorage.getItem('email');  
     dispatch(addNewTask({ text, complete: false }));
 
+    if(text===''){
+        setIsEmpty(true);
+        return;
+    }
+    
+    setIsEmpty(false);
+    
     const addTask = await fetch("/api/addTask",{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -123,6 +131,7 @@ const TaskPage = () => {
         )}
         <button onClick={HandleLogout}>Logout</button>
       </div>
+      {isEmpty && <p className="text-red-500">Please add task</p>}
       <div className="flex flex-col border rounded border-gray-700 gap-4 p-4">
         <h3>List of Tasks</h3>
         <hr className="border border-gray-700" />

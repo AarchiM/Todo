@@ -17,7 +17,6 @@ function App() {
         })
       })
       const data = await res.json()
-      console.log("Result: ",data);
       if(!res.ok){
         return alert("Enter Correct Email and Passsword");
       }

@@ -41,8 +41,6 @@ routes.post("/tasks", async (req, res) => {
     const alltasks = await UserTask.findOne({ email });
     if (!alltasks) res.status(200).json([]);
 
-    console.log("alltasks.tasks: ", alltasks.tasks);
-
     res.status(200).json(alltasks.tasks);
   } catch (error) {
     console.error(error);
