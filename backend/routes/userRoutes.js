@@ -27,7 +27,9 @@ routes.post('/createUser', [
             email,
             password: securePassword,
         })
-        res.status(200).json({success: true});
+        const userLoggedIn = await User.findOne({email: req.body.email});   
+        const authtoken = jwt.sign({userId: userLoggedIn._id}, process.env.JWT_SCERET, {expiresIn: '1d'})
+        res.status(200).json({success: true, Authtoken: authtoken});
     } catch (error) {
         res.status(400).json({success: false, error: error})
     }

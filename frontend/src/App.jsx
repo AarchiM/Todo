@@ -47,7 +47,7 @@ function App() {
       </div>
     </div>
     <button onClick={LoginCredentials}>login</button>
-    <p>dont have Account? <Link to=''>Sign Up</Link></p>
+    <p>dont have Account? <Link to='/signup'>Sign Up</Link></p>
     </div>
   );
 }

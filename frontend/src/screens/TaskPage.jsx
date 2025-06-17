@@ -70,13 +70,19 @@ const TaskPage = () => {
   const HandleEditTask = (eid, updateText) => {
     inputRef.current.focus();
     setText(updateText);
-    setIsEdit((prev) => !prev);
+    setIsEdit(true);
     setNewText(eid);
   };
 
   const HandleUpdateTask = async () => {
     dispatch(updateTask({ text: text, id: newText }));
     const emailSaved = localStorage.getItem('email');
+     if(text===''){
+        setIsEmpty(true);
+        return;
+    }
+    
+    setIsEmpty(false);
 
     const newTask = await fetch("/api/updateTask", {
       method: "POST",
@@ -85,7 +91,7 @@ const TaskPage = () => {
     });
 
     getData();
-    setIsEdit((prev) => !prev);
+    setIsEdit(false);
     setNewText("");
     setText("");
   };
